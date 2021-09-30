@@ -135,21 +135,9 @@ class _WindowsTools extends State<WindowsTools> {
                                             CrossAxisAlignment.stretch,
                                         children: <Widget>[
                                           CardCal(
-                                              "HEXADECIMAL",
-                                              Converterto().decimalHexa(
-                                                  double.parse(
-                                                      myController.text))),
-                                          CardCal(
-                                              "OCTAL",
-                                              Converterto().decimalOctal(
-                                                  double.parse(
-                                                      myController.text))),
-                                          CardCal(
-                                              "BINARIO",
-                                              Converterto().decimalBinario(
-                                                  double.parse(
-                                                      myController.text))),
-                                          CardCal("DECIMAL", myController.text),
+                                              "DECIMAL",
+                                              Converterto().binaryToDecimal(
+                                                  myController2.text)),
                                         ],
                                       ));
                                 },
