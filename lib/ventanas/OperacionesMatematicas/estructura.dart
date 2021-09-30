@@ -1,14 +1,12 @@
-
-
 import 'package:app_cal/components/Converter.dart';
 import 'package:app_cal/components/OperacioneBinarias.dart';
-import 'package:app_cal/ventanas/OperacionesLogicas/alert.dart';
+import 'package:app_cal/components/alert.dart';
+import 'package:app_cal/components/titleandsubtitle.dart';
 import 'package:app_cal/ventanas/OperacionesMatematicas/obtenerResult.dart';
 import 'package:app_cal/ventanas/OperacionesMatematicas/cards.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 
 class EstructuraMatematica extends StatefulWidget {
   @override
@@ -18,7 +16,9 @@ class EstructuraMatematica extends StatefulWidget {
 }
 
 class _EstructuraMatematica extends State<EstructuraMatematica> {
-  var numberInputFormatters = [new FilteringTextInputFormatter.allow(RegExp("[0-1]")),];
+  var numberInputFormatters = [
+    new FilteringTextInputFormatter.allow(RegExp("[0-1]")),
+  ];
   final myController = TextEditingController();
   final myController2 = TextEditingController();
   String _volume = '';
@@ -33,6 +33,8 @@ class _EstructuraMatematica extends State<EstructuraMatematica> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          titleandSubtitle(
+              'Matemática', 'Operaciones Matemáticas entre números binarios'),
           Card(
               elevation: 0.9,
               child: Container(
@@ -41,6 +43,7 @@ class _EstructuraMatematica extends State<EstructuraMatematica> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     TextField(
+                      inputFormatters: numberInputFormatters,
                       decoration: InputDecoration(
                           hintText: "Primer Binario",
                           filled: true,
@@ -58,7 +61,6 @@ class _EstructuraMatematica extends State<EstructuraMatematica> {
                       height: 5,
                     ),
                     TextField(
-                      
                       inputFormatters: numberInputFormatters,
                       decoration: InputDecoration(
                           hintText: "Segundo Binario",
@@ -80,26 +82,33 @@ class _EstructuraMatematica extends State<EstructuraMatematica> {
                           style: style,
                           onPressed: () {
                             if (myController2.text == '' ||
-                                myController.text == ''
-                                ) {
-                              mostrarAlerta(context);
+                                myController.text == '') {
+                              mostrarAlerta(context, 'No se puede Sumar!!',
+                                  'Ingresa los números Binarios');
+                            } else {
+                              setState(() {
+                                _volume = ObtenerResult().SumaBinaria(
+                                    myController.text.toString(),
+                                    myController2.text.toString());
+                              });
                             }
-                            setState(() {
-                              _volume = ObtenerResult().SumaBinaria(
-                                  myController.text.toString(),
-                                  myController2.text.toString());
-                            });
                           },
                           child: const Text('+'),
                         ),
                         ElevatedButton(
                           style: style,
                           onPressed: () {
-                            setState(() {
-                              _volume = ObtenerResult().RestaBinaria(
-                                  myController.text.toString(),
-                                  myController2.text.toString());
-                            });
+                            if (myController2.text == '' ||
+                                myController.text == '') {
+                              mostrarAlerta(context, 'Error!!',
+                                  'Ingresa los números Binarios');
+                            } else {
+                              setState(() {
+                                _volume = ObtenerResult().RestaBinaria(
+                                    myController.text.toString(),
+                                    myController2.text.toString());
+                              });
+                            }
                           },
                           child: const Text('-'),
                         ),
@@ -108,7 +117,7 @@ class _EstructuraMatematica extends State<EstructuraMatematica> {
                   ],
                 ),
               )),
-          CardCal('', _volume),
+          CardCal('Resultado', _volume),
         ],
       ),
     );
