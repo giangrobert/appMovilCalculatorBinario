@@ -17,6 +17,7 @@ class _WindowsTabs extends State<WindowsTabs> {
   @override
   Widget build(BuildContext context) {
     var tabBar = TabBar(
+      padding: EdgeInsets.all(20),
       unselectedLabelColor: Colors.redAccent,
       indicator: BoxDecoration(
         gradient: LinearGradient(colors: [Colors.redAccent, Colors.orange]),

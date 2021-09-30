@@ -19,7 +19,7 @@ class titleandSubtitle extends StatelessWidget {
             Text(this.subtitle,
                 style: TextStyle(
                   color: Colors.black38,
-                  fontSize: 10.0,
+                  fontSize: 12.0,
                 )),
           ],
         ));
